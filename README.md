@@ -37,6 +37,15 @@
 
     로 정의 해야함. 정의한 다음 다시 다른 이름을 다운로드 진행.
 
+**geojson -> topojson으로 전환**
+- npm topojson-client 설치
+- 커맨드 : geo2topo [geo-json파일] > [topo-json파일]
+- topojson 라이브러리는 현재 커맨드라인 툴이 사용불가. 반드시 topojson-client 설치 후 geo2topo로 할것. -Note also that topojson/topojson is no longer the command-line tools for manipulating TopoJSON — that’s all been put in the topojson/topojson-client repository.(출처)
+
+-> 0.5%로 했더니 3~4MB인데 렌더링 시 느리다면 더 작게하는 것을 추천
+
+-> mapshaper로도 topojson, geojson을 만들 수 있지만 투영법 옵션이(-proj) 잘 안먹혀서 ogr2ogr, geo2topo를 적용함.
+
 - **느낀점 및 팁**
   - gis데이터 가공은 projection(투영법) 설정이 중요.
 
@@ -46,3 +55,6 @@
   - 이름_simple.shp : 0.5%로 simplify한 shapefile
   - 이름_geo.json : 가공한 GeoJson 파일
   - index.html : 예제 코드 [browser-sync](https://browsersync.io/) 같은 툴로 Application 형태로 띄워야 에러가 안남. 이유는 모르겠지만 포트로 안 띄우면 에러.
+  
+- **주의사항**
+  - geojson까지만 변경함. topojson까지는 변경하지 않음.
