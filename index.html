@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div id="chart"></div>
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <script src="//d3js.org/topojson.v1.min.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <script>
+    var width = 960,
+        height = 500;
+
+    var svg = d3.select("#chart").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    var projection = d3.geo.mercator()
+        .center([128, 36])
+        .scale(4000)
+        .translate([width/2, height/2]);
+
+    var path = d3.geo.path()
+        .projection(projection);
+
+    queue()
+      .defer(d3.json, "bnd_sigungu_convert-topo.json") // topojson
+      // .defer(d3.json, "bnd_sigungu_convert-geo.json") // geojson
+      .await(ready);
+
+    function ready(error, data) {
+      console.log('data ; ', data)
+      var features = topojson.feature(data, data.objects["bnd_sigungu_convert-mapshaper-geo"]).features; // topojson
+      // var features = data.features // geojson
+
+      svg.selectAll("path")
+          .data(features)
+        .enter()
+        .append("path")
+          .attr("d", path)
+    }
+    </script>
+  </body>
+</html>
