@@ -4,7 +4,7 @@
 
 ### 지도데이터 가공 과정
 - shapefile을 simplify를 진행. 
-  - 우선 mapshaper라는 shp파일 에디팅 툴로 편집. GUI온라인툴도 있음. 본인은 node CUI로 진행. node 공식문서. mapshaper command reference
+  - 우선 mapshaper라는 shp파일 에디팅 툴로 편집. [GUI온라인툴](http://mapshaper.org/)도 있음. 본인은 node CUI로 진행. 
 
   - ```
     $ mapshaper -i 전환할 파일 \
@@ -15,7 +15,7 @@
     ```            
 
 - shapefile(R) -> geojson 전환
-  - ogr2ogr npm 라이브러리를 사용 
+  - [ogr2ogr npm 라이브러리](https://www.npmjs.com/package/ogr2ogr)를 사용 
     - 커맨드 : ogr2ogr -f GeoJSON -t_srs crs:84 [geo json파일명] [shp파일명] 
     - 중요설명 : -t_srs crs:84 로 해줘야 제대로 projection이 됨(지도 투영법).
     - -> 0.5%로 했더니 3~4MB인데 렌더링 시 느리다면 더 작게하는 것을 추천
@@ -42,6 +42,7 @@
 
 
 - **활용가능한 결과물**
-  - 통계청 파일 및 geojson 가공 데이터 파일
-  - 이름_convert.shp : 0.5%로 simplify한 shapefile
+  - 통계청 파일 및 GeoJson 가공 데이터 파일
+  - 이름_simple.shp : 0.5%로 simplify한 shapefile
+  - 이름_geo.json : 가공한 GeoJson 파일
   - index.html : 예제 코드 [browser-sync](https://browsersync.io/) 같은 툴로 Application 형태로 띄워야 에러가 안남. 이유는 모르겠지만 포트로 안 띄우면 에러.
